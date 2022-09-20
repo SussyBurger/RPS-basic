@@ -2,6 +2,16 @@ const playerOne = document.getElementById('player1');
 const cpu = document.getElementById('cpu');
 const resultDisplay = document.getElementById('result');
 const possibleChoice = document.querySelectorAll('button')
+// ================================
+// Tại sao chỗ này lại dùng let mà không phải var???
+/* dùng let ít lỗi hơn(!?) */
+// ================================
+// Trong trường hợp dùng let. Nếu console.log biến playerChoice ở đây thì sẽ có kết quả gì?
+// Trong trường hợp dùng var. Nếu console.log biến playerChoice ở đây thì sẽ có kết quả gì?
+// Tại sao?
+/* Cả let và var đều hiện undefined do chưa có giá trị */
+// ================================
+
 let playerChoice
 let cpuChoice
 let result
@@ -47,12 +57,21 @@ function theResult() {
 }
 
 possibleChoice.forEach(
-    possibleChoice => possibleChoice.addEventListener(
-        'click', (e) => {
-            playerChoice = e.target.id
-            playerOne.innerHTML = playerChoice
-            generateCpuChoice()
-            theResult()
-        }
-    ) 
+    (possibleChoice) => {
+        console.log(possibleChoice);
+        possibleChoice.addEventListener(
+            // (e) ở đây có nghĩa là gì?
+            /* event */
+            'click', (e) => {
+/*                 playerChoice = e.target.id */
+                playerOne.innerHTML = playerChoice
+                // Nếu gọi hàm theResult() trước hàm generateCpuChoice() trước thì sẽ có kết quả gì? Tại sao?
+                /* Hàm theResult() sẽ chạy trước nhưng ko có hiển thị j do cpuChoice chưa được đặt */
+                generateCpuChoice()
+                theResult()
+            }
+        ) 
+    }
 )
+
+// Nếu không khai báo biến playerChoice thì làm cách nào để hàm theResult() vẫn có thể chạy đúng kết quả?
