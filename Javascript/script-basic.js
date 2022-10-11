@@ -4,15 +4,17 @@ const resultDisplay = document.getElementById('result');
 const possibleChoice = document.querySelectorAll('button')
 // ================================
 // Tại sao chỗ này lại dùng let mà không phải var???
-/* dùng let ít lỗi hơn(!?) */
+/* var nếu khai báo lại sẽ  */
 // ================================
 // Trong trường hợp dùng let. Nếu console.log biến playerChoice ở đây thì sẽ có kết quả gì?
 // Trong trường hợp dùng var. Nếu console.log biến playerChoice ở đây thì sẽ có kết quả gì?
 // Tại sao?
-/* Cả let và var đều hiện undefined do chưa có giá trị */
+/* Với cả let và var sẽ hiển thị undefined do chưa gán giá trị cho khi khai báo
+   với var cũng hiện undefined do giá trị mặc định của var là undefined */
 // ================================
 
-let playerChoice
+let playerChoice;
+console.log(playerChoice)
 let cpuChoice
 let result
 
@@ -28,10 +30,9 @@ function generateCpuChoice () {
         cpuChoice = "scissors";
     }
     cpu.innerHTML = cpuChoice;
-    console.log(cpuHand)
 }
 
-function theResult() {
+/* function theResult() {
     if (playerChoice === cpuChoice) {
         outCome = "not decided 😐, retry to find out"
     } else
@@ -54,24 +55,68 @@ function theResult() {
         outCome = "not CPU 😍"
     }
     resultDisplay.innerHTML = outCome
-}
+} */
+
+// Nếu không khai báo biến playerChoice thì làm cách nào để hàm theResult() vẫn có thể chạy đúng kết quả?
+/* Lấy kết quả ngay khi nhận playerChoice  */
+let chooseRock = document.getElementById('rock')
+let choosePaper = document.getElementById('paper')
+let chooseScissors = document.getElementById('scissors')
+
+function theResult() {
+    chooseRock.onclick = () => {
+        if (cpuChoice == "paper") {
+            outCome = "not u 😂"
+        } else
+        if (cpuChoice == "scissors") {
+            outCome = "u 😍"
+        } else 
+        if (cpuChoice == "rock") {
+            outCome = "not decided 😐, retry to find out"
+        }
+        resultDisplay.innerHTML = outCome
+    }
+    choosePaper.onclick = () => {
+        if (cpuChoice == "scissors") {
+            outCome = "not u 😂"
+        } else
+        if (cpuChoice == "rock") {
+            outCome = "u 😍"
+        } else 
+        if (cpuChoice == "paper") {
+            outCome = "not decided 😐, retry to find out"
+        }
+        resultDisplay.innerHTML = outCome
+    }
+    chooseScissors.onclick = () => {
+        if (cpuChoice == "rock") {
+            outCome = "not u 😂"
+        } else
+        if (cpuChoice == "paper") {
+            outCome = "u 😍"
+        } else 
+        if (cpuChoice == "scissors") {
+            outCome = "not decided 😐, retry to find out"
+        }
+        resultDisplay.innerHTML = outCome
+    }
+    
+} 
 
 possibleChoice.forEach(
     (possibleChoice) => {
-        console.log(possibleChoice);
         possibleChoice.addEventListener(
             // (e) ở đây có nghĩa là gì?
-            /* event */
-            'click', (e) => {
-/*                 playerChoice = e.target.id */
-                playerOne.innerHTML = playerChoice
+            /* event khi xử lý nhấp chuột */
+            'click', (e) => {     
+            playerChoice = e.target.id
+            playerOne.innerHTML = playerChoice
                 // Nếu gọi hàm theResult() trước hàm generateCpuChoice() trước thì sẽ có kết quả gì? Tại sao?
-                /* Hàm theResult() sẽ chạy trước nhưng ko có hiển thị j do cpuChoice chưa được đặt */
-                generateCpuChoice()
-                theResult()
+                /*  chỉ hiển thị duy nhất playerChoice(), result cần phải có CpuChoice mới cho kết quả  */
+                generateCpuChoice()       
+                theResult()   
             }
         ) 
     }
 )
 
-// Nếu không khai báo biến playerChoice thì làm cách nào để hàm theResult() vẫn có thể chạy đúng kết quả?
