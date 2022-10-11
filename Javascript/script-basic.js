@@ -4,17 +4,15 @@ const resultDisplay = document.getElementById('result');
 const possibleChoice = document.querySelectorAll('button')
 // ================================
 // Tại sao chỗ này lại dùng let mà không phải var???
-/* var nếu khai báo lại sẽ  */
+/* var có thể khai báo lại và chạy tiếp kể cả khi ra khởi block dẫn đến trường hợp có thể làm sai lệch kết quả*/
 // ================================
 // Trong trường hợp dùng let. Nếu console.log biến playerChoice ở đây thì sẽ có kết quả gì?
 // Trong trường hợp dùng var. Nếu console.log biến playerChoice ở đây thì sẽ có kết quả gì?
 // Tại sao?
-/* Với cả let và var sẽ hiển thị undefined do chưa gán giá trị cho khi khai báo
-   với var cũng hiện undefined do giá trị mặc định của var là undefined */
+/* Với cả let và var sẽ hiển thị undefined do chưa gán giá trị cho khi khai báo */
 // ================================
 
 let playerChoice;
-console.log(playerChoice)
 let cpuChoice
 let result
 
